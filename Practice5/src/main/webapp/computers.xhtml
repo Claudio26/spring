@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+
+<h:form id="frmComputer">
+Model:<h:inputText value="#{computerController.computer.model}" />
+Disc:<h:inputText value="#{computerController.computer.disc}" />
+Brand:<h:inputText value="#{computerController.computer.brand}" />
+Processor:<h:inputText value="#{computerController.computer.processor}" />
+
+		<h:commandButton action="#{computerController.save}" value="Save">
+			<f:ajax execute="frmComputer" render="frmComputer" />
+		</h:commandButton>
+
+		<h:commandButton rendered="#{computerController.editMode}"
+			action="#{computerController.save}" value="Cancel">
+			<f:ajax render="frmComputer"></f:ajax>
+		</h:commandButton>
+
+		<h:dataTable value="#{computerController.computers}" var="a" id="dtComputer">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+	 	#{a.id}
+	</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">Model</f:facet>
+	 	#{a.model}
+	</h:column>
+
+
+			<h:column>
+				<f:facet name="header">Disc</f:facet>
+	 	#{a.disc}
+	</h:column>
+	
+		<h:column>
+				<f:facet name="header">Brand</f:facet>
+	 	#{a.brand}
+	</h:column>
+	
+		<h:column>
+				<f:facet name="header">Processor</f:facet>
+	 	#{a.processor}
+	</h:column>
+
+			<h:column>
+				<f:facet name="header">Actions</f:facet>
+				<h:commandButton action="#{computerController.delete(a)}"
+					value="Delete" onclick="return window.confirm ('Are you sure?')">
+					<f:ajax render="frmComputer:dtComputer" />
+				</h:commandButton>
+				<h:commandButton action="#{computerController.update(a)}"
+					value="Update">
+					<f:ajax render="frmComputer" />
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+</body> 
+</html>
